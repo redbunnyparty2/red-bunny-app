@@ -2,1739 +2,342 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Red Bunny - Dating at the Bar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --red-primary: #FF0000;
-            --red-dark: #CC0000;
-            --black: #1a1a1a;
-            --white: #FFFFFF;
-            --bg-light: #F8F8F8;
-            --shadow: rgba(255, 0, 0, 0.15);
-            --telegram-bg: var(--tg-theme-bg-color, #ffffff);
-            --telegram-text: var(--tg-theme-text-color, #000000);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--telegram-bg);
-            color: var(--telegram-text);
-            overflow-x: hidden;
-            padding-bottom: 80px;
-        }
-
-        /* Header */
-        .app-header {
-            background: linear-gradient(135deg, var(--red-primary) 0%, var(--red-dark) 100%);
-            padding: 1rem;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 20px var(--shadow);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .logo-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: white;
-            padding: 5px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: white;
-            letter-spacing: -0.5px;
-        }
-
-        .tagline {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .status-bar {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 0.5rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.8rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: white;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: #00ff00;
-            border-radius: 50%;
-            animation: pulse-dot 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Section Headers */
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 1.5rem 0 1rem;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--black);
-        }
-
-        .section-icon {
-            font-size: 1.5rem;
-        }
-
-        /* Quick Actions */
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .action-card {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .action-card:active {
-            transform: scale(0.98);
-            border-color: var(--red-primary);
-        }
-
-        .action-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .action-title {
-            font-weight: 700;
-            color: var(--black);
-            margin-bottom: 0.3rem;
-        }
-
-        .action-desc {
-            font-size: 0.75rem;
-            color: #666;
-        }
-
-        /* Profile Cards */
-        .profile-stack {
-            position: relative;
-            height: 500px;
-            margin: 1rem 0;
-        }
-
-        .profile-card {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: white;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .card-image {
-            width: 100%;
-            height: 350px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8rem;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
-        }
-
-        .card-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--red-primary);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
-        }
-
-        .card-table {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .card-info {
-            padding: 1.5rem;
-        }
-
-        .card-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card-details {
-            color: #666;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .card-bio {
-            color: #444;
-            line-height: 1.5;
-        }
-
-        /* Swipe Actions */
-        .swipe-actions {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .swipe-btn {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .swipe-btn:active {
-            transform: scale(0.9);
-        }
-
-        .btn-pass {
-            background: white;
-            color: #999;
-        }
-
-        .btn-drink {
-            background: linear-gradient(135deg, #FFA500, #FF8C00);
-            color: white;
-            width: 80px;
-            height: 80px;
-            font-size: 2.2rem;
-        }
-
-        .btn-like {
-            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
-            color: white;
-        }
-
-        /* Table Map */
-        .table-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .table-item {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .table-item.active {
-            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
-            border-color: var(--red-primary);
-        }
-
-        .table-number {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--black);
-            margin-bottom: 0.3rem;
-        }
-
-        .table-count {
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        .singles-badge {
-            display: inline-block;
-            background: var(--red-primary);
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            margin-top: 0.3rem;
-        }
-
-        /* Matches List */
-        .matches-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .match-item {
-            background: white;
-            border-radius: 20px;
-            padding: 1rem;
-            display: flex;
-            gap: 1rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .match-item:active {
-            transform: translateX(5px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .match-avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            flex-shrink: 0;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
-        }
-
-        .match-info {
-            flex: 1;
-        }
-
-        .match-name {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .match-table {
-            color: #666;
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .match-action {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .mini-btn {
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            border: none;
-            font-weight: 600;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-message {
-            background: var(--bg-light);
-            color: var(--black);
-        }
-
-        .btn-send-drink {
-            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
-            color: white;
-        }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 0.8rem 1rem;
-            display: flex;
-            justify-content: space-around;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 25px 25px 0 0;
-            z-index: 1000;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.3rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-item.active {
-            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
-        }
-
-        .nav-item.active .nav-icon {
-            color: var(--red-primary);
-        }
-
-        .nav-icon {
-            font-size: 1.5rem;
-        }
-
-        .nav-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .nav-badge {
-            position: absolute;
-            top: 0.2rem;
-            right: 0.3rem;
-            background: var(--red-primary);
-            color: white;
-            font-size: 0.6rem;
-            padding: 0.1rem 0.4rem;
-            border-radius: 10px;
-            font-weight: 700;
-        }
-
-        /* Payment Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 25px;
-            padding: 2rem;
-            max-width: 400px;
-            width: 100%;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-subtitle {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .drink-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .drink-option {
-            background: var(--bg-light);
-            border-radius: 15px;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .drink-option:active {
-            border-color: var(--red-primary);
-            background: rgba(255, 0, 0, 0.05);
-        }
-
-        .drink-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .drink-emoji {
-            font-size: 2rem;
-        }
-
-        .drink-details {
-            text-align: left;
-        }
-
-        .drink-name {
-            font-weight: 600;
-            margin-bottom: 0.2rem;
-        }
-
-        .drink-price {
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        .ton-badge {
-            background: #0088cc;
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .modal-btn {
-            flex: 1;
-            padding: 1rem;
-            border-radius: 15px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-cancel {
-            background: var(--bg-light);
-            color: var(--black);
-        }
-
-        .btn-confirm {
-            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
-            color: white;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* Registration */
-        .registration-card {
-            background: white;
-            border-radius: 25px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .reg-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .reg-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .reg-text {
-            color: #666;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            margin: 1rem auto;
-            background: var(--bg-light);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-
-        .big-button {
-            width: 100%;
-            padding: 1.2rem;
-            border-radius: 20px;
-            border: none;
-            background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px var(--shadow);
-        }
-
-        .big-button:active {
-            transform: scale(0.98);
-        }
-    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Header -->
-    <div class="app-header">
-        <div class="logo-container">
-            <svg class="logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="48" fill="white"/>
-                <!-- Bunny ears -->
-                <ellipse cx="35" cy="25" rx="8" ry="20" fill="#FF0000" transform="rotate(-20 35 25)"/>
-                <ellipse cx="65" cy="25" rx="8" ry="20" fill="#FF0000" transform="rotate(20 65 25)"/>
-                <!-- Bunny head -->
-                <circle cx="50" cy="55" r="25" fill="#FF0000"/>
-                <!-- Cocktail glass -->
-                <path d="M 45 65 L 50 75 L 55 65 Z" fill="white"/>
-                <line x1="50" y1="75" x2="50" y2="80" stroke="white" stroke-width="2"/>
-                <line x1="46" y1="80" x2="54" y2="80" stroke="white" stroke-width="2"/>
-            </svg>
-            <div class="logo-text">Red Bunny</div>
-        </div>
-        <div class="tagline">Find Your Match Tonight 🍷</div>
-        <div class="status-bar">
-            <div class="status-item">
-                <span class="pulse-dot"></span>
-                <span id="onlineCount">12 singles here now</span>
-            </div>
-            <div class="status-item">
-                📍 Table <span id="myTable">--</span>
-            </div>
-        </div>
+<body style="font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background: #f5f5f5; padding-bottom: 80px;">
+
+<div style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); padding: 1.5rem; text-align: center; box-shadow: 0 4px 20px rgba(255,0,0,0.15); position: sticky; top: 0; z-index: 100;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.5rem;">
+        <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="animation: pulse 2s ease-in-out infinite;">
+            <circle cx="50" cy="50" r="48" fill="white"/>
+            <ellipse cx="35" cy="25" rx="8" ry="20" fill="#FF0000" transform="rotate(-20 35 25)"/>
+            <ellipse cx="65" cy="25" rx="8" ry="20" fill="#FF0000" transform="rotate(20 65 25)"/>
+            <circle cx="50" cy="55" r="25" fill="#FF0000"/>
+            <path d="M 45 65 L 50 75 L 55 65 Z" fill="white"/>
+            <line x1="50" y1="75" x2="50" y2="80" stroke="white" stroke-width="2"/>
+            <line x1="46" y1="80" x2="54" y2="80" stroke="white" stroke-width="2"/>
+        </svg>
+        <h1 style="font-size: 2rem; font-weight: 800; color: white; margin: 0;">Red Bunny</h1>
     </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Quick Actions -->
-        <div class="quick-actions">
-            <div class="action-card" onclick="showSection('discover')">
-                <div class="action-icon">🔥</div>
-                <div class="action-title">Discover</div>
-                <div class="action-desc">Meet singles tonight</div>
-            </div>
-            <div class="action-card" onclick="showSection('map')">
-                <div class="action-icon">🗺️</div>
-                <div class="action-title">Table Map</div>
-                <div class="action-desc">See who's where</div>
-            </div>
-            <div class="action-card" onclick="showSection('matches')">
-                <div class="action-icon">💕</div>
-                <div class="action-title">Matches</div>
-                <div class="action-desc"><span id="matchCount">3</span> new matches</div>
-            </div>
-            <div class="action-card" onclick="checkIn()">
-                <div class="action-icon">📱</div>
-                <div class="action-title">Check In</div>
-                <div class="action-desc">Scan QR code</div>
-            </div>
-        </div>
-
-        <!-- Discover Section -->
-        <div id="discoverSection" class="section hidden">
-            <div class="section-header">
-                <span class="section-icon">🔥</span>
-                Singles Here Tonight
-            </div>
-            <div class="profile-stack">
-                <div class="profile-card">
-                    <div class="card-image" id="card-image-container">
-                        <!-- Photos will be added here with carousel -->
-                        <div style="position: relative; width: 100%; height: 100%;">
-                            <div id="photo-carousel" style="display: flex; transition: transform 0.3s ease; height: 100%;">
-                                <!-- Photo 1 -->
-                                <div style="min-width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
-                                    <span style="font-size: 4rem;">👩</span>
-                                </div>
-                                <!-- Photo 2 -->
-                                <div style="min-width: 100%; height: 100%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center;">
-                                    <span style="font-size: 4rem;">🌟</span>
-                                </div>
-                                <!-- Photo 3 -->
-                                <div style="min-width: 100%; height: 100%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center;">
-                                    <span style="font-size: 4rem;">✨</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Photo navigation arrows -->
-                            <button type="button" id="prev-photo-btn" onclick="previousPhoto(); event.stopPropagation();" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">‹</button>
-                            <button type="button" id="next-photo-btn" onclick="nextPhoto(); event.stopPropagation();" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">›</button>
-                            
-                            <!-- Photo dots indicator -->
-                            <div id="photo-dots" style="position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem;">
-                                <div class="photo-dot active" onclick="goToPhoto(0); event.stopPropagation();" style="width: 8px; height: 8px; border-radius: 50%; background: white; cursor: pointer;"></div>
-                                <div class="photo-dot" onclick="goToPhoto(1); event.stopPropagation();" style="width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.5); cursor: pointer;"></div>
-                                <div class="photo-dot" onclick="goToPhoto(2); event.stopPropagation();" style="width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.5); cursor: pointer;"></div>
-                            </div>
-                            
-                            <div class="card-table">Table 5</div>
-                            <div class="card-badge">Here Now</div>
-                        </div>
-                    </div>
-                    <div class="card-info">
-                        <div class="card-name">
-                            Sofia
-                            <span style="font-size: 1.2rem; font-weight: 400;">24</span>
-                        </div>
-                        <div class="card-details">📍 Sitting at the bar • Loves cocktails</div>
-                        <div class="card-bio">Looking for someone to share a drink with tonight! Love trying new cocktails 🍸</div>
-                        <div style="background: rgba(255, 0, 0, 0.05); border: 1px solid rgba(255, 0, 0, 0.2); padding: 0.8rem; border-radius: 12px; margin-top: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                            <span style="font-size: 1.2rem;">🍸</span>
-                            <div>
-                                <div style="font-size: 0.7rem; color: #999; text-transform: uppercase; letter-spacing: 1px;">Send me</div>
-                                <div style="font-weight: 600; color: #FF0000; font-size: 0.9rem;">Signature Cocktail</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swipe-actions">
-                <button class="swipe-btn btn-pass" onclick="swipePass()">✕</button>
-                <button class="swipe-btn btn-drink" onclick="sendDrink()">🍷</button>
-                <button class="swipe-btn btn-like" onclick="swipeLike()">❤️</button>
-            </div>
-        </div>
-
-        <!-- Table Map Section -->
-        <div id="mapSection" class="section hidden">
-            <div class="section-header">
-                <span class="section-icon">🗺️</span>
-                Live Table Map
-            </div>
-            <div class="table-grid">
-                <div class="table-item">
-                    <div class="table-number">T1</div>
-                    <div class="table-count">2 people</div>
-                </div>
-                <div class="table-item">
-                    <div class="table-number">T2</div>
-                    <div class="table-count">4 people</div>
-                </div>
-                <div class="table-item active">
-                    <div class="table-number">T3</div>
-                    <div class="table-count">1 person</div>
-                    <div class="singles-badge">1 single</div>
-                </div>
-                <div class="table-item">
-                    <div class="table-number">T4</div>
-                    <div class="table-count">3 people</div>
-                </div>
-                <div class="table-item active">
-                    <div class="table-number">T5</div>
-                    <div class="table-count">2 people</div>
-                    <div class="singles-badge">2 singles</div>
-                </div>
-                <div class="table-item">
-                    <div class="table-number">Bar</div>
-                    <div class="table-count">5 people</div>
-                    <div class="singles-badge">3 singles</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Matches Section -->
-        <div id="matchesSection" class="section hidden">
-            <div class="section-header">
-                <span class="section-icon">💕</span>
-                Your Matches Tonight
-            </div>
-            <div class="matches-list">
-                <div class="match-item">
-                    <div class="match-avatar">👩</div>
-                    <div class="match-info">
-                        <div class="match-name">Emma, 26</div>
-                        <div class="match-table">📍 Table 3 • Matched 5 min ago</div>
-                        <div style="font-size: 0.8rem; color: #FF0000; margin: 0.3rem 0;">🍷 Loves Red Wine</div>
-                        <div class="match-action">
-                            <button class="mini-btn btn-message" onclick="openChat('Emma')">💬 Message</button>
-                            <button class="mini-btn btn-send-drink" onclick="sendDrinkTo('Emma')">🍷 Send Drink</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="match-item">
-                    <div class="match-avatar" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);">👩</div>
-                    <div class="match-info">
-                        <div class="match-name">Mia, 24</div>
-                        <div class="match-table">📍 At the bar • Matched 12 min ago</div>
-                        <div style="font-size: 0.8rem; color: #FF0000; margin: 0.3rem 0;">🍸 Loves Martini</div>
-                        <div class="match-action">
-                            <button class="mini-btn btn-message" onclick="openChat('Mia')">💬 Message</button>
-                            <button class="mini-btn btn-send-drink" onclick="sendDrinkTo('Mia')">🍷 Send Drink</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="match-item">
-                    <div class="match-avatar" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">👩</div>
-                    <div class="match-info">
-                        <div class="match-name">Olivia, 25</div>
-                        <div class="match-table">📍 Table 7 • Matched 20 min ago</div>
-                        <div style="font-size: 0.8rem; color: #FF0000; margin: 0.3rem 0;">🥂 Loves Prosecco</div>
-                        <div class="match-action">
-                            <button class="mini-btn btn-message" onclick="openChat('Olivia')">💬 Message</button>
-                            <button class="mini-btn btn-send-drink" onclick="sendDrinkTo('Olivia')">🍷 Send Drink</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Profile Section -->
-        <div id="profileSection" class="section hidden">
-            <h2>My Profile</h2>
-            
-            <!-- Profile Photo Section -->
-            <div style="margin-bottom: 2rem;">
-                <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Photos</h3>
-                
-                <!-- Photo Gallery -->
-                <div id="photo-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem;">
-                    <!-- Photo slots will be added here -->
-                </div>
-                
-                <!-- Add Photo Button - Direct file input -->
-                <label for="photo-input" id="add-photo-label" style="display: block; width: 100%; padding: 1rem; background: rgba(255, 0, 0, 0.1); border: 2px dashed #FF0000; border-radius: 12px; color: #FF0000; font-weight: 600; cursor: pointer; text-align: center;">
-                    📸 Add Photo (Max 6)
-                </label>
-                
-                <!-- File input -->
-                <input type="file" id="photo-input" accept="image/*" style="display: none;">
-                
-                <!-- Quick test button -->
-                <button type="button" id="test-photo-btn" style="width: 100%; padding: 0.5rem; margin-top: 0.5rem; background: #f0f0f0; border: 1px solid #ddd; border-radius: 8px; color: #666; font-size: 0.8rem; cursor: pointer; -webkit-appearance: none;">
-                    🧪 Add Test Photo (for testing)
-                </button>
-                
-                <script>
-                // Safari-friendly event listener for test button
-                setTimeout(function() {
-                    const testBtn = document.getElementById('test-photo-btn');
-                    if (testBtn) {
-                        testBtn.addEventListener('click', addTestPhoto, false);
-                    }
-                }, 100);
-                </script>
-                
-                <!-- Delete all photos button (for emergencies) -->
-                <button type="button" id="delete-all-btn" style="width: 100%; padding: 0.5rem; margin-top: 0.5rem; background: rgba(255, 0, 0, 0.05); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 8px; color: #FF0000; font-size: 0.8rem; cursor: pointer; -webkit-appearance: none;">
-                    🗑️ Delete All Photos
-                </button>
-                
-                <script>
-                // Safari-friendly event listener for delete all button
-                setTimeout(function() {
-                    const deleteAllBtn = document.getElementById('delete-all-btn');
-                    if (deleteAllBtn) {
-                        deleteAllBtn.addEventListener('click', deleteAllPhotos, false);
-                    }
-                }, 100);
-                </script>
-            </div>
-            
-            <!-- Profile Info Section -->
-            <div style="background: #f8f8f8; padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;">
-                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Profile Info</h3>
-                
-                <div style="margin-bottom: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem; color: #666; font-size: 0.9rem;">Name</label>
-                    <input type="text" id="profile-name" value="You" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-                </div>
-                
-                <div style="margin-bottom: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem; color: #666; font-size: 0.9rem;">Age</label>
-                    <input type="number" id="profile-age" value="28" min="18" max="99" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;">
-                </div>
-                
-                <div style="margin-bottom: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem; color: #666; font-size: 0.9rem;">Preferred Drink 🍷</label>
-                    <select id="profile-drink" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; background: white; cursor: pointer;">
-                        <option value="">Select your favorite...</option>
-                        <option value="🍸 Signature Cocktail">🍸 Signature Cocktail</option>
-                        <option value="🍷 Red Wine">🍷 Red Wine</option>
-                        <option value="🍾 Champagne">🍾 Champagne</option>
-                        <option value="🍺 Craft Beer">🍺 Craft Beer</option>
-                        <option value="🥃 Whiskey">🥃 Whiskey</option>
-                        <option value="🍹 Mojito">🍹 Mojito</option>
-                        <option value="🍸 Martini">🍸 Martini</option>
-                        <option value="🍷 White Wine">🍷 White Wine</option>
-                        <option value="🥂 Prosecco">🥂 Prosecco</option>
-                        <option value="🍻 Local Beer">🍻 Local Beer</option>
-                    </select>
-                    <p style="color: #999; font-size: 0.75rem; margin-top: 0.5rem;">💡 People can send you this drink when they match with you</p>
-                </div>
-                
-                <div style="margin-bottom: 1rem;">
-                    <label style="display: block; margin-bottom: 0.5rem; color: #666; font-size: 0.9rem;">Bio</label>
-                    <textarea id="profile-bio" rows="3" placeholder="Tell us about yourself..." style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; resize: vertical;">Living in Tbilisi 🇬🇪</textarea>
-                </div>
-                
-                <button onclick="saveProfile()" style="width: 100%; padding: 1rem; background: #FF0000; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
-                    Save Profile
-                </button>
-            </div>
-            
-            <!-- Preview Section -->
-            <div style="background: #f8f8f8; padding: 1.5rem; border-radius: 12px;">
-                <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Preview</h3>
-                <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">This is how others will see you</p>
-                <div id="profile-preview" style="background: white; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                    <!-- Preview will be generated here -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Registration Section -->
-        <div id="registrationSection" class="section">
-            <div class="registration-card">
-                <div class="reg-icon">🐰</div>
-                <div class="reg-title">Welcome to Red Bunny!</div>
-                <div class="reg-text">
-                    Scan the QR code at your table to check in and start matching with singles at the bar tonight!
-                </div>
-                <div class="qr-code">📷</div>
-                <button class="big-button" onclick="simulateCheckIn()">
-                    Scan QR Code to Check In
-                </button>
-                <div style="margin-top: 1rem; color: #666; font-size: 0.85rem;">
-                    Or enter your table number manually
-                </div>
-            </div>
-        </div>
+    <p style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin: 0;">Find Your Match Tonight 🍷</p>
+    <div style="background: rgba(255,255,255,0.15); padding: 0.5rem 1rem; margin-top: 0.8rem; border-radius: 20px; display: flex; justify-content: space-between;">
+        <span style="color: white; font-size: 0.85rem; font-weight: 600;"><span style="display: inline-block; width: 8px; height: 8px; background: #00ff00; border-radius: 50%; animation: blink 1.5s infinite;"></span> <span id="status">Connecting...</span></span>
+        <span style="color: white; font-size: 0.85rem; font-weight: 600;">📍 Table <span id="table">--</span></span>
     </div>
+</div>
 
-    <!-- Send Drink Modal -->
-    <div id="drinkModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Send a Drink 🍷</div>
-                <div class="modal-subtitle">Choose a drink to send</div>
-            </div>
-            <div class="drink-options">
-                <div class="drink-option" onclick="selectDrink('cocktail', 12)">
-                    <div class="drink-info">
-                        <div class="drink-emoji">🍸</div>
-                        <div class="drink-details">
-                            <div class="drink-name">Signature Cocktail</div>
-                            <div class="drink-price">Our house special</div>
-                        </div>
-                    </div>
-                    <div class="ton-badge">12 TON</div>
-                </div>
-                <div class="drink-option" onclick="selectDrink('wine', 8)">
-                    <div class="drink-info">
-                        <div class="drink-emoji">🍷</div>
-                        <div class="drink-details">
-                            <div class="drink-name">Glass of Wine</div>
-                            <div class="drink-price">Red or White</div>
-                        </div>
-                    </div>
-                    <div class="ton-badge">8 TON</div>
-                </div>
-                <div class="drink-option" onclick="selectDrink('champagne', 20)">
-                    <div class="drink-info">
-                        <div class="drink-emoji">🍾</div>
-                        <div class="drink-details">
-                            <div class="drink-name">Champagne</div>
-                            <div class="drink-price">Make it special!</div>
-                        </div>
-                    </div>
-                    <div class="ton-badge">20 TON</div>
-                </div>
-                <div class="drink-option" onclick="selectDrink('beer', 5)">
-                    <div class="drink-info">
-                        <div class="drink-emoji">🍺</div>
-                        <div class="drink-details">
-                            <div class="drink-name">Craft Beer</div>
-                            <div class="drink-price">Local favorite</div>
-                        </div>
-                    </div>
-                    <div class="ton-badge">5 TON</div>
-                </div>
-            </div>
-            <div class="modal-buttons">
-                <button class="modal-btn btn-cancel" onclick="closeDrinkModal()">Cancel</button>
-            </div>
-        </div>
+<div style="max-width: 600px; margin: 0 auto; padding: 1rem;" id="app"></div>
+
+<div id="nav" style="position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e0e0e0; display: none; justify-content: space-around; padding: 1rem 0; z-index: 1000;">
+    <div onclick="showDiscover()" style="text-align: center; cursor: pointer; color: #FF0000;">
+        <div style="font-size: 1.5rem;">🔥</div>
+        <div style="font-size: 0.7rem; font-weight: 600;">Discover</div>
     </div>
-
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="showSection('discover')">
-            <span class="nav-icon">🔥</span>
-            <span class="nav-label">Discover</span>
-        </div>
-        <div class="nav-item" onclick="showSection('map')">
-            <span class="nav-icon">🗺️</span>
-            <span class="nav-label">Map</span>
-        </div>
-        <div class="nav-item" onclick="showSection('matches')">
-            <span class="nav-icon">💕</span>
-            <span class="nav-label">Matches</span>
-            <span class="nav-badge">3</span>
-        </div>
-        <div class="nav-item" onclick="showSection('profile')">
-            <span class="nav-icon">👤</span>
-            <span class="nav-label">Profile</span>
-        </div>
+    <div onclick="showProfile()" style="text-align: center; cursor: pointer; color: #666;">
+        <div style="font-size: 1.5rem;">👤</div>
+        <div style="font-size: 0.7rem; font-weight: 600;">Profile</div>
     </div>
+</div>
 
-    <script>
-        // Telegram WebApp Integration
-        let tg = window.Telegram?.WebApp;
-        if (tg) {
-            tg.expand();
-            tg.ready();
-        }
+<style>
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.btn { width: 100%; padding: 1.2rem; background: #FF0000; color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif; }
+.btn:hover { background: #CC0000; }
+.card { background: white; padding: 2rem; border-radius: 20px; margin: 1rem 0; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+</style>
 
-        // State management
-        let currentUser = {
-            checkedIn: false,
-            tableNumber: null,
-            matches: []
-        };
+<script>
+console.log('🐰 Red Bunny with REAL DATABASE Starting!');
 
-        let selectedDrinkRecipient = null;
+const PROXY = 'https://small-moth-91.redbunnyparty2.deno.net/api';
+let user = null;
+let userPhotos = [];
+let tg = window.Telegram?.WebApp;
+if (tg) { tg.ready(); tg.expand(); }
 
-        // Load saved state
-        function loadState() {
-            const saved = localStorage.getItem('redBunny_state');
-            if (saved) {
-                currentUser = JSON.parse(saved);
-                if (currentUser.checkedIn) {
-                    document.getElementById('registrationSection').classList.add('hidden');
-                    document.getElementById('discoverSection').classList.remove('hidden');
-                    document.getElementById('myTable').textContent = currentUser.tableNumber;
-                }
-            }
-        }
+async function api(endpoint, method = 'GET', body = null) {
+    const opts = { method, headers: { 'Content-Type': 'application/json' } };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(PROXY + endpoint, opts);
+    if (!res.ok) throw new Error('API Error');
+    const text = await res.text();
+    return text ? JSON.parse(text) : null;
+}
 
-        // Save state
-        function saveState() {
-            localStorage.setItem('redBunny_state', JSON.stringify(currentUser));
-        }
-
-        // Check in
-        function checkIn() {
-            const tableNum = prompt('Enter your table number:', '');
-            if (tableNum) {
-                simulateCheckIn(tableNum);
-            }
-        }
-
-        function simulateCheckIn(tableNum) {
-            const table = tableNum || Math.floor(Math.random() * 10) + 1;
-            currentUser.checkedIn = true;
-            currentUser.tableNumber = table;
-            saveState();
+async function init() {
+    try {
+        document.getElementById('status').textContent = 'Testing connection...';
+        
+        await api('/users?limit=1');
+        console.log('✅ Database connected via proxy!');
+        
+        document.getElementById('status').innerHTML = '<span style="color: #00ff00;">●</span> LIVE';
+        
+        const telegramUser = (tg && tg.initDataUnsafe?.user) 
+            ? tg.initDataUnsafe.user 
+            : { id: Math.floor(Math.random() * 1000000), first_name: 'Test' };
+        
+        const users = await api('/users?telegram_id=eq.' + telegramUser.id);
+        
+        if (users && users.length > 0) {
+            user = users[0];
             
-            document.getElementById('registrationSection').classList.add('hidden');
-            document.getElementById('discoverSection').classList.remove('hidden');
-            document.getElementById('myTable').textContent = table;
+            const photos = await api('/photos?user_id=eq.' + user.id + '&order=position.asc');
+            if (photos) userPhotos = photos.map(p => p.photo_url);
             
-            alert(`✅ Checked in at Table ${table}!\n\nYou can now start matching with singles at the bar!`);
-        }
-
-        // Section navigation
-        function showSection(section) {
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            const checkins = await api('/checkins?user_id=eq.' + user.id + '&is_active=eq.true');
             
-            // Show selected section
-            const sectionId = section + 'Section';
-            document.getElementById(sectionId).classList.remove('hidden');
-            
-            // Initialize photo gallery when showing profile
-            if (section === 'profile') {
-                initPhotoGallery();
-                
-                // Load profile data
-                const savedProfile = localStorage.getItem('userProfile');
-                if (savedProfile) {
-                    const profile = JSON.parse(savedProfile);
-                    document.getElementById('profile-name').value = profile.name || 'You';
-                    document.getElementById('profile-age').value = profile.age || '28';
-                    document.getElementById('profile-bio').value = profile.bio || 'Living in Tbilisi 🇬🇪';
-                    document.getElementById('profile-drink').value = profile.drink || '';
-                }
-            }
-            
-            // Update nav
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            event?.target?.closest('.nav-item')?.classList.add('active');
-        }
-
-        // Swipe actions
-        function swipePass() {
-            document.querySelector('.profile-card').style.animation = 'swipeLeft 0.5s ease-out forwards';
-            setTimeout(() => {
-                loadNextProfile();
-            }, 500);
-        }
-
-        function swipeLike() {
-            document.querySelector('.profile-card').style.animation = 'swipeRight 0.5s ease-out forwards';
-            setTimeout(() => {
-                alert('💕 It\'s a Match!\n\nSofia matched with you! Send her a drink or start chatting!');
-                loadNextProfile();
-            }, 500);
-        }
-
-        function loadNextProfile() {
-            const card = document.querySelector('.profile-card');
-            card.style.animation = 'none';
-            setTimeout(() => {
-                // Load next profile (simplified for demo)
-                alert('Loading next profile...');
-            }, 100);
-        }
-
-        // Send drink
-        function sendDrink() {
-            selectedDrinkRecipient = 'Sofia';
-            document.getElementById('drinkModal').classList.add('active');
-        }
-
-        function sendDrinkTo(name) {
-            selectedDrinkRecipient = name;
-            document.getElementById('drinkModal').classList.add('active');
-        }
-
-        function closeDrinkModal() {
-            document.getElementById('drinkModal').classList.remove('active');
-            selectedDrinkRecipient = null;
-        }
-
-        function selectDrink(type, price) {
-            if (confirm(`Send this drink to ${selectedDrinkRecipient} for ${price} TON?`)) {
-                // Integrate with Telegram TON payment
-                if (tg && tg.openInvoice) {
-                    // Real TON payment would go here
-                    alert(`🍷 Payment sent!\n\nProcessing ${price} TON payment via Telegram...\n\n${selectedDrinkRecipient} will receive your drink at their table!`);
-                } else {
-                    alert(`🍷 Drink sent to ${selectedDrinkRecipient}!\n\nCost: ${price} TON\n\nThey'll receive it at their table shortly!`);
-                }
-                closeDrinkModal();
-            }
-        }
-
-        // Chat
-        function openChat(name) {
-            alert(`💬 Opening chat with ${name}...\n\n(Full messaging feature coming soon!)`);
-        }
-
-        // ========== PHOTO CAROUSEL SYSTEM ==========
-        let currentPhotoIndex = 0;
-        let currentProfilePhotos = [];
-
-        function showUserPhotosInCarousel() {
-            const carousel = document.getElementById('photo-carousel');
-            const dots = document.getElementById('photo-dots');
-            const prevBtn = document.getElementById('prev-photo-btn');
-            const nextBtn = document.getElementById('next-photo-btn');
-            
-            if (!carousel || !userPhotos.length) return;
-            
-            currentProfilePhotos = userPhotos;
-            currentPhotoIndex = 0;
-            
-            // Clear carousel
-            carousel.innerHTML = '';
-            
-            // Add all user photos
-            userPhotos.forEach((photo, index) => {
-                const photoDiv = document.createElement('div');
-                photoDiv.style.cssText = 'min-width: 100%; height: 100%; position: relative;';
-                photoDiv.innerHTML = `<img src="${photo}" style="width: 100%; height: 100%; object-fit: cover;">`;
-                carousel.appendChild(photoDiv);
-            });
-            
-            // Update dots
-            if (dots) {
-                dots.innerHTML = '';
-                dots.style.display = userPhotos.length > 1 ? 'flex' : 'none';
-                
-                userPhotos.forEach((_, index) => {
-                    const dot = document.createElement('div');
-                    dot.className = index === 0 ? 'photo-dot active' : 'photo-dot';
-                    dot.style.cssText = `
-                        width: 8px; 
-                        height: 8px; 
-                        border-radius: 50%; 
-                        background: ${index === 0 ? 'white' : 'rgba(255, 255, 255, 0.5)'}; 
-                        cursor: pointer;
-                    `;
-                    dot.onclick = () => goToPhoto(index);
-                    dots.appendChild(dot);
-                });
-            }
-            
-            // Show/hide arrows
-            if (prevBtn && nextBtn) {
-                const showArrows = userPhotos.length > 1;
-                prevBtn.style.display = showArrows ? 'flex' : 'none';
-                nextBtn.style.display = showArrows ? 'flex' : 'none';
-            }
-        }
-
-        function previousPhoto() {
-            if (currentPhotoIndex > 0) {
-                currentPhotoIndex--;
-                updateCarousel();
-            }
-        }
-
-        function nextPhoto() {
-            if (currentPhotoIndex < currentProfilePhotos.length - 1) {
-                currentPhotoIndex++;
-                updateCarousel();
-            }
-        }
-
-        function goToPhoto(index) {
-            currentPhotoIndex = index;
-            updateCarousel();
-        }
-
-        function updateCarousel() {
-            const carousel = document.getElementById('photo-carousel');
-            if (!carousel) return;
-            
-            // Slide to current photo
-            const offset = -currentPhotoIndex * 100;
-            carousel.style.transform = `translateX(${offset}%)`;
-            
-            // Update dots
-            const dots = document.querySelectorAll('.photo-dot');
-            dots.forEach((dot, index) => {
-                if (index === currentPhotoIndex) {
-                    dot.style.background = 'white';
-                    dot.classList.add('active');
-                } else {
-                    dot.style.background = 'rgba(255, 255, 255, 0.5)';
-                    dot.classList.remove('active');
-                }
-            });
-        }
-
-        // ========== PHOTO UPLOAD SYSTEM (SIMPLIFIED) ==========
-        let userPhotos = [];
-        const MAX_PHOTOS = 6;
-
-        // Initialize photo system when page loads
-        function initPhotoSystem() {
-            // Load saved photos
-            const saved = localStorage.getItem('userPhotos');
-            if (saved) {
-                try {
-                    userPhotos = JSON.parse(saved);
-                } catch (e) {
-                    console.error('Error loading photos:', e);
-                    userPhotos = [];
-                }
-            }
-            
-            // Setup file input listener
-            const photoInput = document.getElementById('photo-input');
-            if (photoInput) {
-                photoInput.addEventListener('change', function(e) {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    
-                    // Check if max photos reached
-                    if (userPhotos.length >= MAX_PHOTOS) {
-                        alert(`Maximum ${MAX_PHOTOS} photos reached!`);
-                        return;
-                    }
-                    
-                    // Check file type
-                    if (!file.type.startsWith('image/')) {
-                        alert('Please select an image file (JPG, PNG, etc.)');
-                        return;
-                    }
-                    
-                    // Check file size (5MB max)
-                    if (file.size > 5 * 1024 * 1024) {
-                        alert('Image must be smaller than 5MB');
-                        return;
-                    }
-                    
-                    // Read and save the file
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        // Add photo to array
-                        userPhotos.push(event.target.result);
-                        
-                        // Save to localStorage
-                        try {
-                            localStorage.setItem('userPhotos', JSON.stringify(userPhotos));
-                            alert('Photo added! ✅');
-                            initPhotoGallery();
-                        } catch (e) {
-                            alert('Error saving photo. It might be too large.');
-                            userPhotos.pop(); // Remove the photo we just added
-                        }
-                    };
-                    reader.onerror = function() {
-                        alert('Error reading file. Please try again.');
-                    };
-                    reader.readAsDataURL(file);
-                    
-                    // Reset input
-                    e.target.value = '';
-                });
-            }
-        }
-
-        function initPhotoGallery() {
-            const gallery = document.getElementById('photo-gallery');
-            const label = document.getElementById('add-photo-label');
-            
-            if (!gallery) return;
-            
-            gallery.innerHTML = '';
-            
-            // Add existing photos - SAFARI COMPATIBLE VERSION
-            userPhotos.forEach((photo, index) => {
-                const photoSlot = document.createElement('div');
-                photoSlot.style.cssText = `
-                    position: relative;
-                    aspect-ratio: 1;
-                    border-radius: 12px;
-                    overflow: hidden;
-                    background: #f0f0f0;
-                `;
-                
-                // Image
-                const img = document.createElement('img');
-                img.src = photo;
-                img.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
-                photoSlot.appendChild(img);
-                
-                // Primary badge
-                if (index === 0) {
-                    const badge = document.createElement('div');
-                    badge.textContent = 'PRIMARY';
-                    badge.style.cssText = 'position: absolute; top: 0.5rem; left: 0.5rem; background: #FF0000; color: white; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.7rem; font-weight: 600; z-index: 10;';
-                    photoSlot.appendChild(badge);
-                }
-                
-                // Delete button - SAFARI FIX: Use addEventListener
-                const deleteBtn = document.createElement('button');
-                deleteBtn.type = 'button';
-                deleteBtn.innerHTML = '×';
-                deleteBtn.style.cssText = 'position: absolute; top: 0.5rem; right: 0.5rem; background: rgba(255, 0, 0, 0.9); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.8rem; font-weight: bold; line-height: 1; z-index: 10; -webkit-appearance: none;';
-                
-                // SAFARI FIX: Create closure for index
-                (function(photoIndex) {
-                    deleteBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        deletePhotoSafari(photoIndex);
-                    }, false);
-                })(index);
-                
-                photoSlot.appendChild(deleteBtn);
-                
-                // Make primary button (for non-primary photos)
-                if (index !== 0) {
-                    const primaryBtn = document.createElement('button');
-                    primaryBtn.type = 'button';
-                    primaryBtn.textContent = '⭐ Primary';
-                    primaryBtn.style.cssText = 'position: absolute; bottom: 0.5rem; left: 0.5rem; right: 0.5rem; background: rgba(0, 0, 0, 0.8); border: none; color: white; padding: 0.5rem; border-radius: 8px; font-size: 0.7rem; font-weight: 600; cursor: pointer; z-index: 10; -webkit-appearance: none;';
-                    
-                    // SAFARI FIX: Create closure for index
-                    (function(photoIndex) {
-                        primaryBtn.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            makePrimarySafari(photoIndex);
-                        }, false);
-                    })(index);
-                    
-                    photoSlot.appendChild(primaryBtn);
-                }
-                
-                gallery.appendChild(photoSlot);
-            });
-            
-            // Update label
-            if (label) {
-                if (userPhotos.length >= MAX_PHOTOS) {
-                    label.style.opacity = '0.5';
-                    label.style.cursor = 'not-allowed';
-                    label.textContent = `📸 Maximum ${MAX_PHOTOS} photos`;
-                } else {
-                    label.style.opacity = '1';
-                    label.style.cursor = 'pointer';
-                    label.textContent = `📸 Add Photo (${userPhotos.length}/${MAX_PHOTOS})`;
-                }
-            }
-            
-            updateProfilePreview();
-        }
-
-        // SAFARI-compatible delete function
-        function deletePhotoSafari(index) {
-            console.log('Safari delete called for index:', index);
-            console.log('Total photos before delete:', userPhotos.length);
-            
-            // DELETE WITHOUT CONFIRMATION (for testing)
-            userPhotos.splice(index, 1);
-            console.log('Photo removed from array. Remaining:', userPhotos.length);
-            
-            try {
-                localStorage.setItem('userPhotos', JSON.stringify(userPhotos));
-                console.log('Saved to localStorage');
-            } catch (e) {
-                console.error('LocalStorage error:', e);
-            }
-            
-            console.log('Calling initPhotoGallery...');
-            initPhotoGallery();
-            
-            console.log('Delete complete!');
-            window.alert('✅ Photo deleted! (No confirmation needed for testing)');
-        }
-
-        // SAFARI-compatible make primary function
-        function makePrimarySafari(index) {
-            console.log('Safari make primary called for index:', index);
-            
-            const photo = userPhotos[index];
-            userPhotos.splice(index, 1);
-            userPhotos.unshift(photo);
-            try {
-                localStorage.setItem('userPhotos', JSON.stringify(userPhotos));
-            } catch (e) {
-                console.error('LocalStorage error:', e);
-            }
-            initPhotoGallery();
-            window.alert('⭐ Made primary!');
-        }
-
-
-        function deleteAllPhotos() {
-            console.log('Delete all photos called');
-            
-            if (userPhotos.length === 0) {
-                window.alert('You have no photos to delete!');
-                return;
-            }
-            
-            if (window.confirm(`Delete ALL ${userPhotos.length} photos?\n\nThis cannot be undone!`)) {
-                userPhotos = [];
-                try {
-                    localStorage.setItem('userPhotos', JSON.stringify(userPhotos));
-                } catch (e) {
-                    console.error('LocalStorage error:', e);
-                }
-                initPhotoGallery();
-                window.alert('All photos deleted! ✅');
-            }
-        }
-
-
-        // Add a test photo (colored square)
-        function addTestPhoto() {
-            if (userPhotos.length >= MAX_PHOTOS) {
-                alert(`Maximum ${MAX_PHOTOS} photos reached!`);
-                return;
-            }
-            
-            const canvas = document.createElement('canvas');
-            canvas.width = 400;
-            canvas.height = 400;
-            const ctx = canvas.getContext('2d');
-            
-            const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            
-            ctx.fillStyle = color;
-            ctx.fillRect(0, 0, 400, 400);
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 48px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText('Test Photo', 200, 180);
-            ctx.font = '24px Arial';
-            ctx.fillText(`#${userPhotos.length + 1}`, 200, 220);
-            
-            const photoData = canvas.toDataURL('image/png');
-            userPhotos.push(photoData);
-            localStorage.setItem('userPhotos', JSON.stringify(userPhotos));
-            
-            alert('Test photo added! ✅');
-            initPhotoGallery();
-        }
-
-        function saveProfile() {
-            const name = document.getElementById('profile-name').value;
-            const age = document.getElementById('profile-age').value;
-            const bio = document.getElementById('profile-bio').value;
-            const drink = document.getElementById('profile-drink').value;
-            
-            const profile = { name, age, bio, drink };
-            localStorage.setItem('userProfile', JSON.stringify(profile));
-            
-            updateProfilePreview();
-            alert('Profile saved! ✅');
-        }
-
-        function updateProfilePreview() {
-            const preview = document.getElementById('profile-preview');
-            if (!preview) return; // Exit if element not found
-            
-            const profile = JSON.parse(localStorage.getItem('userProfile') || '{"name":"You","age":"28","bio":"Living in Tbilisi 🇬🇪"}');
-            
-            const hasPhotos = userPhotos.length > 0;
-            const hasMultiplePhotos = userPhotos.length > 1;
-            
-            // Build photo carousel HTML
-            let photoHTML = '';
-            if (hasPhotos) {
-                photoHTML = `
-                    <div style="position: relative; width: 100%; overflow: hidden;">
-                        <div id="preview-carousel" style="display: flex; transition: transform 0.3s ease;">
-                            ${userPhotos.map(photo => `
-                                <div style="min-width: 100%; aspect-ratio: 4/5;">
-                                    <img src="${photo}" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                            `).join('')}
-                        </div>
-                        
-                        ${hasMultiplePhotos ? `
-                            <button type="button" onclick="previewPrevPhoto()" style="position: absolute; left: 0.5rem; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;">‹</button>
-                            <button type="button" onclick="previewNextPhoto()" style="position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;">›</button>
-                            
-                            <div id="preview-dots" style="position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem;">
-                                ${userPhotos.map((_, index) => `
-                                    <div class="preview-dot ${index === 0 ? 'active' : ''}" onclick="previewGoToPhoto(${index})" style="width: 6px; height: 6px; border-radius: 50%; background: ${index === 0 ? 'white' : 'rgba(255, 255, 255, 0.5)'}; cursor: pointer;"></div>
-                                `).join('')}
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
+            if (checkins && checkins.length > 0) {
+                document.getElementById('table').textContent = checkins[0].table_number;
+                document.getElementById('nav').style.display = 'flex';
+                showDiscover();
             } else {
-                photoHTML = `
-                    <div style="width: 100%; aspect-ratio: 4/5; background: linear-gradient(135deg, #FF0000, #CC0000); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
-                        👤
-                    </div>
-                `;
+                showWelcome();
             }
+        } else {
+            showWelcome();
+        }
+        
+    } catch (error) {
+        console.error('Init error:', error);
+        document.getElementById('status').textContent = 'Error: ' + error.message;
+        document.getElementById('app').innerHTML = `
+            <div class="card">
+                <h2 style="color: #FF0000;">⚠️ Connection Failed</h2>
+                <p>${error.message}</p>
+                <button class="btn" onclick="location.reload()">Try Again</button>
+            </div>
+        `;
+    }
+}
+
+function showWelcome() {
+    document.getElementById('app').innerHTML = `
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🐰</div>
+            <h2>Welcome to Red Bunny!</h2>
+            <p style="color: #666; line-height: 1.6; margin: 1.5rem 0;">Meet singles at the bar tonight! Check in to start matching.</p>
+            <div style="font-size: 5rem; margin: 2rem 0; background: #f9f9f9; padding: 2rem; border-radius: 12px; border: 2px dashed #e0e0e0;">📷</div>
+            <button class="btn" onclick="checkIn()">📱 Check In Now</button>
+        </div>
+    `;
+}
+
+async function checkIn() {
+    try {
+        const telegramUser = (tg && tg.initDataUnsafe?.user) 
+            ? tg.initDataUnsafe.user 
+            : { id: Math.floor(Math.random() * 1000000), first_name: 'Test' };
+        
+        if (!user) {
+            const newUser = await api('/users', 'POST', {
+                telegram_id: telegramUser.id,
+                username: telegramUser.username || '',
+                first_name: telegramUser.first_name || 'User',
+                last_name: telegramUser.last_name || ''
+            });
+            user = newUser[0];
+        }
+        
+        const tableNum = Math.floor(Math.random() * 10) + 1;
+        await api('/checkins', 'POST', {
+            user_id: user.id,
+            table_number: tableNum,
+            is_active: true
+        });
+        
+        document.getElementById('table').textContent = tableNum;
+        
+        if (!user.name) {
+            showProfileSetup();
+        } else {
+            document.getElementById('nav').style.display = 'flex';
+            showDiscover();
+        }
+    } catch (error) {
+        alert('Check-in failed: ' + error.message);
+    }
+}
+
+function showProfileSetup() {
+    document.getElementById('app').innerHTML = `
+        <div class="card">
+            <h2 style="margin-bottom: 1.5rem;">✨ Complete Your Profile</h2>
             
-            preview.innerHTML = `
-                <div style="position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 1rem;">
-                    ${photoHTML}
-                    <div style="position: absolute; top: 1rem; left: 1rem; background: rgba(0, 0, 0, 0.7); padding: 0.3rem 0.8rem; border-radius: 20px; color: white; font-size: 0.8rem; font-weight: 600;">
-                        Here Now 🔴
-                    </div>
-                    ${currentUser.tableNumber ? 
-                        `<div style="position: absolute; top: 1rem; right: 1rem; background: rgba(255, 0, 0, 0.9); padding: 0.3rem 0.8rem; border-radius: 20px; color: white; font-size: 0.8rem; font-weight: 600;">
-                            Table ${currentUser.tableNumber}
-                        </div>` : ''
-                    }
-                    ${hasPhotos ? `
-                        <div style="position: absolute; top: 3.5rem; right: 1rem; background: rgba(0, 0, 0, 0.7); padding: 0.3rem 0.8rem; border-radius: 20px; color: white; font-size: 0.75rem; font-weight: 600;">
-                            ${userPhotos.length} photo${userPhotos.length > 1 ? 's' : ''}
-                        </div>
-                    ` : ''}
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #666;">📸 Photos</label>
+            <div id="photoGallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem;"></div>
+            <input type="file" id="photoInput" accept="image/*" style="display: none;">
+            <button class="btn" onclick="document.getElementById('photoInput').click()" style="background: rgba(255,0,0,0.1); color: #FF0000; margin-bottom: 1.5rem;">📸 Add Photo</button>
+            
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #666;">👤 Name</label>
+            <input type="text" id="name" placeholder="Your first name" style="width: 100%; padding: 1rem; background: #f5f5f5; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; margin-bottom: 1rem;">
+            
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #666;">🎂 Age</label>
+            <input type="number" id="age" min="18" max="99" placeholder="18+" style="width: 100%; padding: 1rem; background: #f5f5f5; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; margin-bottom: 1rem;">
+            
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #666;">✍️ Bio (Optional)</label>
+            <textarea id="bio" placeholder="Tell people about yourself..." style="width: 100%; padding: 1rem; background: #f5f5f5; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; margin-bottom: 1rem; min-height: 100px;"></textarea>
+            
+            <button class="btn" onclick="saveProfile()">✅ Save & Start Matching</button>
+        </div>
+    `;
+    
+    document.getElementById('photoInput').addEventListener('change', async function(e) {
+        const file = e.target.files[0];
+        if (!file || !file.type.startsWith('image/')) {
+            alert('Please select an image');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = async function(event) {
+            const photoUrl = event.target.result;
+            userPhotos.push(photoUrl);
+            
+            await api('/photos', 'POST', {
+                user_id: user.id,
+                photo_url: photoUrl,
+                is_primary: userPhotos.length === 1,
+                position: userPhotos.length - 1
+            });
+            
+            renderPhotos();
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+function renderPhotos() {
+    document.getElementById('photoGallery').innerHTML = userPhotos.map((url, i) => `
+        <div style="position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: #f0f0f0;">
+            <img src="${url}" style="width: 100%; height: 100%; object-fit: cover;">
+            <button onclick="deletePhoto(${i})" style="position: absolute; top: 0.5rem; right: 0.5rem; background: rgba(255,0,0,0.9); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.5rem;">×</button>
+        </div>
+    `).join('');
+}
+
+async function deletePhoto(index) {
+    if (!confirm('Delete?')) return;
+    await api('/photos?user_id=eq.' + user.id + '&photo_url=eq.' + encodeURIComponent(userPhotos[index]), 'DELETE');
+    userPhotos.splice(index, 1);
+    renderPhotos();
+}
+
+async function saveProfile() {
+    const name = document.getElementById('name').value.trim();
+    const age = parseInt(document.getElementById('age').value);
+    const bio = document.getElementById('bio').value.trim();
+    
+    if (!name || !age || userPhotos.length === 0) {
+        alert('Please add photo, name, and age!');
+        return;
+    }
+    
+    await api('/users?id=eq.' + user.id, 'PATCH', { name, age, bio });
+    user.name = name;
+    user.age = age;
+    document.getElementById('nav').style.display = 'flex';
+    showDiscover();
+}
+
+async function showDiscover() {
+    try {
+        const checkins = await api('/checkins?is_active=eq.true&user_id=neq.' + user.id + '&select=table_number,user_id');
+        const count = checkins ? checkins.length : 0;
+        
+        document.getElementById('status').innerHTML = `<span style="color: #00ff00;">●</span> ${count} singles here`;
+        
+        if (count === 0) {
+            document.getElementById('app').innerHTML = `
+                <div class="card" style="text-align: center; padding: 3rem;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">🐰</div>
+                    <h3>No one else here yet!</h3>
+                    <p style="color: #666;">Be the first tonight 🔥</p>
                 </div>
-                <div style="padding: 0 0.5rem;">
-                    <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 0.3rem;">${profile.name}, ${profile.age}</div>
-                    <div style="color: #666; font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.8rem;">${profile.bio}</div>
-                    ${profile.drink ? `<div style="background: rgba(255, 0, 0, 0.05); border: 1px solid rgba(255, 0, 0, 0.2); padding: 0.8rem; border-radius: 12px; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="font-size: 1.2rem;">${profile.drink.split(' ')[0]}</span>
-                        <div>
-                            <div style="font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 1px;">Preferred Drink</div>
-                            <div style="font-weight: 600; color: #FF0000; font-size: 0.9rem;">${profile.drink.substring(profile.drink.indexOf(' ') + 1)}</div>
+            `;
+            return;
+        }
+        
+        let html = '';
+        for (const checkin of checkins) {
+            const users = await api('/users?id=eq.' + checkin.user_id);
+            if (!users || users.length === 0) continue;
+            const otherUser = users[0];
+            
+            const photos = await api('/photos?user_id=eq.' + otherUser.id + '&is_primary=eq.true&limit=1');
+            const photoUrl = photos && photos[0] ? photos[0].photo_url : null;
+            
+            html += `
+                <div style="background: white; border-radius: 25px; overflow: hidden; margin-bottom: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+                    <div style="position: relative; width: 100%; height: 350px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+                        ${photoUrl ? `<img src="${photoUrl}" style="width: 100%; height: 100%; object-fit: cover;">` : '<span style="font-size: 4rem;">👤</span>'}
+                        <div style="position: absolute; top: 1rem; left: 1rem; background: rgba(0,0,0,0.7); padding: 0.5rem 1rem; border-radius: 20px; color: white; font-size: 0.85rem; font-weight: 600;">Here Now 🔴</div>
+                        <div style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,0,0,0.9); padding: 0.5rem 1rem; border-radius: 20px; color: white; font-size: 0.85rem; font-weight: 600;">Table ${checkin.table_number}</div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <div style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem;">${otherUser.name}, ${otherUser.age}</div>
+                        ${otherUser.bio ? `<div style="color: #666; line-height: 1.6; margin-bottom: 1rem;">${otherUser.bio}</div>` : ''}
+                        <div style="display: flex; justify-content: center; gap: 1.5rem; padding: 1rem 0;">
+                            <button onclick="pass()" style="width: 70px; height: 70px; border-radius: 50%; border: none; font-size: 2rem; cursor: pointer; background: rgba(255,0,0,0.2); color: #FF0000;">✕</button>
+                            <button onclick="like('${otherUser.id}')" style="width: 70px; height: 70px; border-radius: 50%; border: none; font-size: 2rem; cursor: pointer; background: rgba(0,255,0,0.2); color: #00FF00;">❤️</button>
                         </div>
-                    </div>` : ''}
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <span style="background: rgba(255, 0, 0, 0.1); color: #FF0000; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">🇬🇪 Tbilisi</span>
-                        <span style="background: rgba(255, 0, 0, 0.1); color: #FF0000; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">🌍 Expat</span>
                     </div>
                 </div>
             `;
-            
-            // Reset preview carousel index
-            window.previewPhotoIndex = 0;
         }
+        
+        document.getElementById('app').innerHTML = html;
+    } catch (error) {
+        console.error('Load users error:', error);
+    }
+}
 
-        // Preview carousel navigation
-        window.previewPhotoIndex = 0;
-        function previewPrevPhoto() {
-            if (window.previewPhotoIndex > 0) {
-                window.previewPhotoIndex--;
-                updatePreviewCarousel();
-            }
-        }
+function pass() {
+    const cards = document.querySelectorAll('[style*="border-radius: 25px"]');
+    if (cards.length > 0) cards[0].remove();
+}
 
-        function previewNextPhoto() {
-            if (window.previewPhotoIndex < userPhotos.length - 1) {
-                window.previewPhotoIndex++;
-                updatePreviewCarousel();
-            }
-        }
+async function like(userId) {
+    try {
+        await api('/matches', 'POST', { user1_id: user.id, user2_id: userId });
+        alert('Match! 💕');
+    } catch (e) {}
+    pass();
+}
 
-        function previewGoToPhoto(index) {
-            window.previewPhotoIndex = index;
-            updatePreviewCarousel();
-        }
+async function showProfile() {
+    const photoUrl = userPhotos[0] || null;
+    document.getElementById('app').innerHTML = `
+        <div style="background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+            <div style="position: relative; width: 100%; height: 350px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+                ${photoUrl ? `<img src="${photoUrl}" style="width: 100%; height: 100%; object-fit: cover;">` : '<span style="font-size: 4rem;">👤</span>'}
+                <div style="position: absolute; top: 1rem; left: 1rem; background: rgba(0,0,0,0.7); padding: 0.5rem 1rem; border-radius: 20px; color: white; font-size: 0.85rem; font-weight: 600;">Here Now 🔴</div>
+            </div>
+            <div style="padding: 1.5rem;">
+                <div style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem;">${user.name}, ${user.age}</div>
+                ${user.bio ? `<div style="color: #666; line-height: 1.6; margin-bottom: 1rem;">${user.bio}</div>` : ''}
+            </div>
+        </div>
+        <button class="btn" style="margin-top: 1rem; background: rgba(255,0,0,0.2); color: #FF0000;" onclick="checkOut()">🚪 Check Out</button>
+    `;
+}
 
-        function updatePreviewCarousel() {
-            const carousel = document.getElementById('preview-carousel');
-            if (!carousel) return;
-            
-            const offset = -window.previewPhotoIndex * 100;
-            carousel.style.transform = `translateX(${offset}%)`;
-            
-            // Update dots
-            const dots = document.querySelectorAll('.preview-dot');
-            dots.forEach((dot, index) => {
-                if (index === window.previewPhotoIndex) {
-                    dot.style.background = 'white';
-                } else {
-                    dot.style.background = 'rgba(255, 255, 255, 0.5)';
-                }
-            });
-        }
+async function checkOut() {
+    if (!confirm('Check out?')) return;
+    await api('/checkins?user_id=eq.' + user.id + '&is_active=eq.true', 'PATCH', { is_active: false });
+    document.getElementById('table').textContent = '--';
+    document.getElementById('nav').style.display = 'none';
+    showWelcome();
+}
 
-        // Load photos from storage
-
-        // Animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes swipeRight {
-                to {
-                    transform: translateX(400px) rotate(20deg);
-                    opacity: 0;
-                }
-            }
-            @keyframes swipeLeft {
-                to {
-                    transform: translateX(-400px) rotate(-20deg);
-                    opacity: 0;
-                }
-            }
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                25% { transform: translateX(-2px) rotate(-1deg); }
-                75% { transform: translateX(2px) rotate(1deg); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Initialize
-        loadState();
-        initPhotoSystem();
-
-        // Update online count periodically
-        setInterval(() => {
-            const count = Math.floor(Math.random() * 5) + 10;
-            document.getElementById('onlineCount').textContent = `${count} singles here now`;
-        }, 5000);
-    </script>
+init();
+setInterval(() => {
+    if (document.getElementById('app').innerHTML.includes('Table')) showDiscover();
+}, 30000);
+</script>
 </body>
 </html>
